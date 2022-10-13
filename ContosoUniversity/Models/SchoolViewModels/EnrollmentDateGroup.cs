@@ -7,7 +7,6 @@ namespace ContosoUniversity.Models.SchoolViewModels
     {
         [DataType(DataType.Date)]
         public DateTime? EnrollmentDate { get; set; }
-
         public int StudentCount { get; set; }
     }
 }

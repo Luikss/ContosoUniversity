@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
 using ContosoUniversity.Models;
@@ -123,7 +121,7 @@ namespace ContosoUniversity.Controllers
             return View(student);
         }
 
-        // GET: Students/Edit/5
+        // GET: Students/Edit/{id}
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -139,7 +137,7 @@ namespace ContosoUniversity.Controllers
             return View(student);
         }
 
-        // POST: Students/Edit/5
+        // POST: Students/Edit/{id}
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Edit")]
@@ -172,7 +170,7 @@ namespace ContosoUniversity.Controllers
             return View(studentToUpdate);
         }
 
-        // GET: Students/Delete/5
+        // GET: Students/Delete/{id}
         public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -198,29 +196,29 @@ namespace ContosoUniversity.Controllers
             return View(student);
         }
 
-        // POST: Students/Delete/5
+        // POST: Students/Delete/{id}
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-public async Task<IActionResult> DeleteConfirmed(int id)
-{
-    var student = await _context.Students.FindAsync(id);
-    if (student == null)
-    {
-        return RedirectToAction(nameof(Index));
-    }
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var student = await _context.Students.FindAsync(id);
+            if (student == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
-    try
-    {
-        _context.Students.Remove(student);
-        await _context.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
-    }
-    catch (DbUpdateException /* ex */)
-    {
-        //Log the error (uncomment ex variable name and write a log.)
-        return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
-    }
-}
+            try
+            {
+                _context.Students.Remove(student);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                //Log the error (uncomment ex variable name and write a log.)
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
+            }
+        }
 
         private bool StudentExists(int id)
         {
