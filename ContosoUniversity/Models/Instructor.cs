@@ -8,7 +8,7 @@ namespace ContosoUniversity.Models
     public class Instructor
     {
         [Key]
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         [Required]
         [StringLength(50)]

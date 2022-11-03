@@ -58,7 +58,7 @@ namespace ContosoUniversity.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CourseID,Credits,DepartmentId,Title")] Course course)
+        public async Task<IActionResult> Create([Bind("CourseID,Credits,DepartmentID,Title")] Course course)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace ContosoUniversity.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            PopulateDepartmentsDropDownList(course.DepartmentId);
+            PopulateDepartmentsDropDownList(course.DepartmentID);
             return View(course);
         }
 
@@ -85,7 +85,7 @@ namespace ContosoUniversity.Controllers
             {
                 return NotFound();
             }
-            PopulateDepartmentsDropDownList(course.DepartmentId);
+            PopulateDepartmentsDropDownList(course.DepartmentID);
             return View(course);
         }
 
@@ -106,7 +106,7 @@ namespace ContosoUniversity.Controllers
 
             if (await TryUpdateModelAsync<Course>(courseToUpdate,
                 "",
-                c => c.Credits, c => c.DepartmentId, c => c.Title))
+                c => c.Credits, c => c.DepartmentID, c => c.Title))
             {
                 try
                 {
@@ -121,7 +121,7 @@ namespace ContosoUniversity.Controllers
                         "see your system administrator.");
                 }
             }
-            PopulateDepartmentsDropDownList(courseToUpdate.DepartmentId);
+            PopulateDepartmentsDropDownList(courseToUpdate.DepartmentID);
             return View(courseToUpdate);
         }
 
@@ -130,7 +130,7 @@ namespace ContosoUniversity.Controllers
             var departmentsQuery = from d in _context.Departments
                                    orderby d.Name
                                    select d;
-            ViewBag.DepartmentId = new SelectList(departmentsQuery.AsNoTracking(), "DepartmentId", "Name", selectedDepartment);
+            ViewBag.ID = new SelectList(departmentsQuery.AsNoTracking(), "DepartmentID", "Name", selectedDepartment);
         }
 
         // GET: Courses/Delete/5
